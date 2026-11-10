@@ -392,29 +392,52 @@ const FEE = 4500, PLAN_PEOPLE = 50, EXTRA_PER = 3000, LS_KEY = 'dachs-reception-
 const store = {
   data: {cash:0, paypay:0},
   remote: !!COUNT_ENDPOINT,
+  queue: [], busy: false, lastLocal: 0,
   loadLocal(){ try { const v = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); if (v) this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; } catch(e){} },
   saveLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify(this.data)); } catch(e){} },
+  quiet(){ return this.busy || this.queue.length > 0 || Date.now() - this.lastLocal < 5000; },
+  // Polling: only adopt the server value when this phone has nothing in flight,
+  // so a stale reply never overwrites what the person just tapped.
   async refresh(){
-    if (!this.remote) return;
-    try { const r = await fetch(COUNT_ENDPOINT); const v = await r.json(); this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; renderCount(); setConn(true); }
-    catch(e){ setConn(false); }
+    if (!this.remote || this.quiet()) return;
+    try {
+      const r = await fetch(COUNT_ENDPOINT + '?t=' + Date.now(), {cache:'no-store'});
+      const v = await r.json();
+      if (this.quiet()) return;
+      this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; renderCount(); setConn(true);
+    } catch(e){ setConn(false); }
   },
-  async add(kind, delta){
+  add(kind, delta){
     const next = Math.max(0, this.data[kind] + delta);
     if (next === this.data[kind]) return;
-    this.data = {...this.data, [kind]: next}; renderCount();
+    this.data = {...this.data, [kind]: next}; this.lastLocal = Date.now(); renderCount();
     if (!this.remote){ this.saveLocal(); return; }
-    try {
-      const r = await fetch(COUNT_ENDPOINT, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({kind, delta})});
-      const v = await r.json(); this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; renderCount(); setConn(true);
-    } catch(e){ setConn(false); }
+    this.queue.push({kind, delta}); setConn(true); this.flush();
+  },
+  // Send taps one at a time, in order. The screen keeps showing the local count;
+  // the server value is adopted only after the last queued tap is confirmed.
+  async flush(){
+    if (this.busy) return;
+    this.busy = true;
+    while (this.queue.length){
+      const job = this.queue[0];
+      try {
+        const r = await fetch(COUNT_ENDPOINT, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(job)});
+        const v = await r.json();
+        this.queue.shift();
+        if (!this.queue.length){ this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; renderCount(); }
+        setConn(true);
+      } catch(e){ setConn(false); await new Promise(res => setTimeout(res, 3000)); }
+    }
+    this.busy = false; this.lastLocal = Date.now(); setConn(true);
   }
 };
 const yen = n => n.toLocaleString('ja-JP');
 function setConn(ok){
   const el = document.getElementById('conn');
   if (!store.remote) el.innerHTML = '<b>未接続</b>：このスマホの中だけで数えています';
-  else el.textContent = ok ? 'みんなのスマホと共有中（10秒ごとに更新）' : '通信できませんでした。電波を確認してください';
+  else if (!ok) el.textContent = '通信できませんでした。電波が戻ったら自動で送り直します' + (store.queue.length ? `（未送信 ${store.queue.length}件）` : '');
+  else el.textContent = store.queue.length ? `送信中…（${store.queue.length}件）` : 'みんなのスマホと共有中（10秒ごとに更新）';
 }
 function renderCount(){
   const {cash, paypay} = store.data, total = cash + paypay;
