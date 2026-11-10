@@ -139,7 +139,26 @@ ol.tt li.current .t::after{content:"NOW";display:block;font-size:10px;letter-spa
 .role .d{font-size:12px;color:var(--muted)}
 .role.tbd .p{color:var(--gold)}
 ol.st{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
-ol.st li{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;padding:10px 12px;border-radius:10px;border:1px solid transparent}
+ol.st li{border-radius:10px;border:1px solid transparent}
+ol.st .row{all:unset;box-sizing:border-box;display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;width:100%;padding:10px 12px;border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+ol.st .row:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+ol.st .chev{display:inline-block;margin-left:6px;font-size:11px;color:var(--muted);transition:transform .2s}
+ol.st li.open .chev{transform:rotate(180deg)}
+ol.st li.past.open{opacity:1}
+.mp{padding:0 12px 12px 80px;display:flex;flex-direction:column;gap:8px}
+.mp textarea{font:inherit;font-size:15px;font-weight:500;line-height:1.7;color:var(--ink);width:100%;min-height:3.6em;resize:none;overflow:hidden;border-radius:8px;padding:8px 10px;background:var(--gold-soft);border:1px dashed var(--line);outline:none}
+.mp textarea::placeholder{color:var(--muted)}
+.mp textarea[readonly]{cursor:default}
+.mp li.editing textarea,.editing .mp textarea{background:var(--surface);border:1.5px solid var(--gold);box-shadow:0 0 0 3px var(--now-soft)}
+.mp .acts{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.mp .msg{font-size:12px;color:var(--muted);margin-right:auto}
+.mp .msg.err{color:var(--gold);font-weight:700}
+.mp .acts button{font:inherit;font-size:13px;font-weight:700;border-radius:8px;padding:6px 16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.mp .acts button.save{background:var(--gold);border-color:var(--gold);color:var(--surface)}
+.mp .acts button:disabled{opacity:.5;cursor:default}
+.st-hint{margin:-2px 0 0;font-size:13px;color:var(--muted)}
+.st-hint b{color:var(--ink)}
+@media (max-width:380px){.mp{padding-left:12px}}
 ol.st .t{font-family:var(--block);font-size:16px;font-variant-numeric:tabular-nums;color:var(--muted);line-height:1.4}
 ol.st .c{min-width:0;display:flex;flex-direction:column;gap:2px}
 ol.st .w{font-weight:900;font-size:15px;line-height:1.4}
@@ -279,6 +298,7 @@ details.fold[open] summary{margin-bottom:10px}
       <span class="sub">現金 <b class="js-cash">0</b>人・PayPay <b class="js-paypay">0</b>人</span>
     </a>
     <h2>タイムテーブル（詳細）</h2>
+    <p class="st-hint"><b>項目名をタップするとメモが開きます。</b>「編集」で書き換えて「保存」すると、幹事みんなのスマホに反映されます。</p>
     <div class="alert"><b>新郎新婦の到着は20:15〜20:30ごろになりそう</b>八芳園の退館が20:00ごろのため。八芳園を出たら幹事にLINEします。乾杯を待つか、先に乾杯するかは、雰囲気を見て判断をお願いします！</div>
     <ol class="st" id="st"></ol>
   </section>
@@ -403,6 +423,7 @@ const store = {
     try {
       const r = await fetch(COUNT_ENDPOINT + '?t=' + Date.now(), {cache:'no-store'});
       const v = await r.json();
+      memoStore.apply(v.memos);
       if (this.quiet()) return;
       this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; renderCount(); setConn(true);
     } catch(e){ setConn(false); }
@@ -432,6 +453,26 @@ const store = {
     this.busy = false; this.lastLocal = Date.now(); setConn(true);
   }
 };
+const MEMO_LS = 'dachs-staff-memos';
+const norm = t => String(t ?? '').replace(/\r\n?/g, '\n');
+const memoStore = {
+  data: {}, editing: new Set(),
+  key: e => e.t + ' ' + e.what,
+  loadLocal(){ try { this.data = JSON.parse(localStorage.getItem(MEMO_LS) || '{}') || {}; } catch(e){} },
+  saveLocal(){ try { localStorage.setItem(MEMO_LS, JSON.stringify(this.data)); } catch(e){} },
+  text(e){ const k = this.key(e); return Object.prototype.hasOwnProperty.call(this.data, k) ? norm(this.data[k]) : e.memo; },
+  apply(m){ if (!m || typeof m !== 'object') return; this.data = m; if (typeof renderMemos === 'function') renderMemos(); },
+  async save(e, text){
+    const k = this.key(e); text = norm(text);
+    if (!store.remote){ this.data = {...this.data, [k]: text}; this.saveLocal(); return; }
+    const r = await fetch(COUNT_ENDPOINT, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({type:'memo', key:k, text})});
+    const v = await r.json();
+    if (!v.memos) throw new Error('old-script');
+    if (norm(v.memos[k]) !== text) throw new Error('not-saved');
+    this.data = v.memos;
+  }
+};
+if (!COUNT_ENDPOINT) memoStore.loadLocal();
 const yen = n => n.toLocaleString('ja-JP');
 function setConn(ok){
   const el = document.getElementById('conn');
@@ -503,13 +544,51 @@ const st = document.getElementById('st');
 EVENTS.forEach((e, i) => {
   if (e.mode !== 'staff') return;
   const li = document.createElement('li'); li.dataset.i = i;
-  li.innerHTML = '<div class="t"></div><div class="c"><span class="w"></span><span class="who"></span><span class="m"></span></div>';
+  li.innerHTML = '<button type="button" class="row" aria-expanded="false"><div class="t"></div><div class="c"><span class="w"><span class="wt"></span><span class="chev" aria-hidden="true">▾</span></span><span class="who"></span></div></button>'
+    + '<div class="mp" hidden><textarea readonly rows="2" aria-label="メモ" placeholder="メモなし"></textarea>'
+    + '<div class="acts"><span class="msg" role="status"></span><button type="button" class="cancel" hidden>キャンセル</button><button type="button" class="edit">編集</button><button type="button" class="save" hidden>保存</button></div></div>';
   li.querySelector('.t').textContent = e.t;
-  li.querySelector('.w').textContent = e.what;
+  li.querySelector('.wt').textContent = e.what;
   li.querySelector('.who').textContent = e.who;
-  li.querySelector('.m').textContent = e.memo;
   st.append(li);
+  wireMemo(li, e);
 });
+
+// ---- Staff memos: tap a row to open its memo; 編集 → 保存 writes it to the sheet ----
+function autosize(ta){ if (ta.offsetParent === null) return; ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 2 + 'px'; }
+function wireMemo(li, e){
+  const k = memoStore.key(e);
+  const row = li.querySelector('.row'), mp = li.querySelector('.mp'), ta = li.querySelector('textarea');
+  const bEdit = li.querySelector('.edit'), bSave = li.querySelector('.save'), bCancel = li.querySelector('.cancel'), msg = li.querySelector('.msg');
+  const setMsg = (t, err) => { msg.textContent = t; msg.classList.toggle('err', !!err); };
+  const setEditing = on => {
+    on ? memoStore.editing.add(k) : memoStore.editing.delete(k);
+    li.classList.toggle('editing', on); ta.readOnly = !on;
+    bEdit.hidden = on; bSave.hidden = !on; bCancel.hidden = !on;
+  };
+  ta.value = memoStore.text(e);
+  row.addEventListener('click', () => {
+    const open = mp.hidden; mp.hidden = !open; li.classList.toggle('open', open);
+    row.setAttribute('aria-expanded', open); if (open) autosize(ta);
+  });
+  ta.addEventListener('input', () => autosize(ta));
+  bEdit.addEventListener('click', () => { setEditing(true); setMsg(''); ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); });
+  bCancel.addEventListener('click', () => { setEditing(false); setMsg(''); ta.value = memoStore.text(e); autosize(ta); });
+  bSave.addEventListener('click', async () => {
+    bSave.disabled = bCancel.disabled = true; setMsg('保存中…');
+    try { await memoStore.save(e, ta.value); setEditing(false); setMsg('保存しました'); ta.value = memoStore.text(e); autosize(ta); }
+    catch(err){ setMsg(err.message === 'old-script' ? '保存できませんでした（スクリプトの更新が必要です）' : '保存できませんでした。電波を確認して、もう一度「保存」を押してください', true); }
+    finally { bSave.disabled = bCancel.disabled = false; }
+  });
+  li._memo = {e, ta};
+}
+function renderMemos(){
+  st.querySelectorAll('li').forEach(li => {
+    if (!li._memo || memoStore.editing.has(memoStore.key(li._memo.e))) return;
+    const v = memoStore.text(li._memo.e);
+    if (li._memo.ta.value !== v){ li._memo.ta.value = v; autosize(li._memo.ta); }
+  });
+}
 
 // Party timetable rows (flyer order).
 const tt = document.getElementById('tt');
