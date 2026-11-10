@@ -22,12 +22,8 @@
   --body:'Zen Kaku Gothic New', 'Hiragino Sans', system-ui, sans-serif;
   --block:'Archivo Black', 'Zen Kaku Gothic New', Impact, sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#191814; --surface:#22211C; --ink:#EEEAE0; --muted:#A39E8E; --line:#3A372E;
-  --gold:#CDB675; --gold-soft:#2E2A1E; --now:#9CC3AB; --now-soft:#22302A; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#191814; --surface:#22211C; --ink:#EEEAE0; --muted:#A39E8E; --line:#3A372E;
-  --gold:#CDB675; --gold-soft:#2E2A1E; --now:#9CC3AB; --now-soft:#22302A; color-scheme:dark}
+/* Always the ivory card look, even when the phone is in dark mode. */
+:root{color-scheme:light}
 /* Party mode is a single, deliberately dark look taken from the flyer. */
 body.party{
   --bg:#16130F; --surface:#1F1B16; --ink:#F3EAD8; --muted:#CFC4AE; --line:#3A332A;
@@ -653,6 +649,12 @@ function route(){
   document.getElementById('party').hidden = mode !== 'party';
   document.getElementById('staff').hidden = mode !== 'staff';
   document.getElementById('count').hidden = mode !== 'count';
+  document.title = {
+    wedding: 'ATSUKI & AYAKA 11.15',
+    party:   'LONG BODY DACHSHUND MUSIC 11.15',
+    staff:   '幹事ページ｜LONG BODY DACHSHUND MUSIC',
+    count:   '受付カウンター｜LONG BODY DACHSHUND MUSIC'
+  }[mode];
   const btn = document.getElementById('modeBtn');
   btn.hidden = mode === 'staff' || mode === 'count';
   const cbtn = document.getElementById('countBtn');
