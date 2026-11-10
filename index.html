@@ -423,9 +423,11 @@ const store = {
   async refresh(){
     if (!this.remote || this.quiet()) return;
     try {
+      const memoVer = memoStore.ver;
       const r = await fetch(COUNT_ENDPOINT + '?t=' + Date.now(), {cache:'no-store'});
       const v = await r.json();
-      memoStore.apply(v.memos);
+      // A memo save that started after this poll went out wins over the poll's (older) memos.
+      if (memoStore.ver === memoVer && !memoStore.saving) memoStore.apply(v.memos);
       if (this.quiet()) return;
       this.data = {cash:+v.cash||0, paypay:+v.paypay||0}; renderCount(); setConn(true);
     } catch(e){ setConn(false); }
@@ -458,7 +460,7 @@ const store = {
 const MEMO_LS = 'dachs-staff-memos';
 const norm = t => String(t ?? '').replace(/\r\n?/g, '\n');
 const memoStore = {
-  data: {}, editing: new Set(),
+  data: {}, editing: new Set(), ver: 0, saving: 0,
   key: e => e.t + ' ' + e.what,
   loadLocal(){ try { this.data = JSON.parse(localStorage.getItem(MEMO_LS) || '{}') || {}; } catch(e){} },
   saveLocal(){ try { localStorage.setItem(MEMO_LS, JSON.stringify(this.data)); } catch(e){} },
@@ -466,9 +468,14 @@ const memoStore = {
   apply(m){ if (!m || typeof m !== 'object') return; this.data = m; if (typeof renderMemos === 'function') renderMemos(); },
   async save(e, text){
     const k = this.key(e); text = norm(text);
+    this.ver++;
     if (!store.remote){ this.data = {...this.data, [k]: text}; this.saveLocal(); return; }
-    const r = await fetch(COUNT_ENDPOINT, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({type:'memo', key:k, text})});
-    const v = await r.json();
+    this.saving++;
+    let v;
+    try {
+      const r = await fetch(COUNT_ENDPOINT, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({type:'memo', key:k, text})});
+      v = await r.json();
+    } finally { this.saving--; this.ver++; }
     if (!v.memos) throw new Error('old-script');
     if (norm(v.memos[k]) !== text) throw new Error('not-saved');
     this.data = v.memos;
