@@ -333,7 +333,8 @@ details.fold[open] summary{margin-bottom:10px}
     <details class="fold"><summary>担当</summary>
     <div class="roles">
       <div class="role"><span class="r">幹事</span><span class="p">新郎新婦</span><span class="d">進行管理・会場とのやり取り・精算</span></div>
-      <div class="role"><span class="r">MC</span><span class="p">Tomoko &amp; Chissu</span><span class="d">乾杯の呼びかけ・ビンゴ・締め</span></div>
+      <div class="role"><span class="r">MC</span><span class="p">Tomoko &amp; Chissu</span><span class="d">最初の進行（乾杯の呼びかけ）・締め</span></div>
+      <div class="role"><span class="r">ビンゴ司会</span><span class="p">もりぞー</span><span class="d">DJ MORIZOの出番のあと、そのまま司会へ</span></div>
       <div class="role"><span class="r">受付・会費</span><span class="p">品田豪さん</span><span class="d">会費・リストバンド・ビンゴカード</span></div>
       <div class="role"><span class="r">乾杯の発声</span><span class="p">新郎新婦</span><span class="d">20:00ごろの乾杯</span></div>
       <div class="role"><span class="r">タイムキーパー</span><span class="p">ひろきち</span><span class="d">DJの切り替えの合図</span></div>
@@ -354,7 +355,7 @@ details.fold[open] summary{margin-bottom:10px}
         </ol></details>
       <details><summary>ビンゴ大会（21:20〜21:40）</summary>
         <ol>
-          <li>MCが開始を宣言し、景品を紹介（2分）</li>
+          <li>もりぞーが開始を宣言し、景品を紹介（2分）</li>
           <li>番号をテンポよく読み上げる。リーチの人は挙手</li>
           <li>ビンゴが出たら前へ。カードを確認して新郎新婦から景品を手渡し</li>
           <li>21:35で景品が残っていたら、リーチの人どうしでじゃんけん</li>
@@ -528,6 +529,8 @@ store.loadLocal(); renderCount(); setConn(true);
 if (store.remote){ store.refresh(); setInterval(() => store.refresh(), 10000); }
 window.addEventListener('storage', e => { if (e.key === LS_KEY){ store.loadLocal(); renderCount(); } });
 
+const ENTRY_PARTY = /^#party/.test(location.hash);
+
 // All times are Japan time on 2026-11-15.
 const D = (hm) => new Date(`2026-11-15T${hm}:00+09:00`);
 const EVENTS = [
@@ -545,15 +548,15 @@ const EVENTS = [
   {mode:'party', t:'22:20', what:'DJ OKAZAKI', dj:'OKAZAKI', feat:'（feat. 泥酔トラベル）'},
   {mode:'party', t:'23:00', what:'CLOSE'},
   {mode:'staff', t:'18:30', what:'豪さん 八芳園を出発', who:'豪さん', memo:'タクシーで恵比寿へ（タクシー代は新郎から）'},
-  {mode:'staff', t:'19:00', what:'入室・準備開始', who:'豪さん', memo:'受付の設置（会費POP・名簿・おつり・PayPayのQR）、リストバンドを会場から受け取る、フライヤーを貼る。DJは音出しチェック'},
+  {mode:'staff', t:'19:00', what:'入室・準備開始', who:'豪さん・DJ陣', memo:'受付の設置（会費POP・名簿・おつり・PayPayのQR）、リストバンドを会場から受け取る、フライヤーを貼る。DJ陣とひろきちも先入りOK（機材チェック・荷物を置いてゆったり）'},
   {mode:'staff', t:'19:15', what:'会場と最終確認', who:'会場にいるみんな', memo:'飲み放題の開始時刻、精算の方法、テラスの扱い'},
   {mode:'staff', t:'19:30', what:'OPEN・受付開始', who:'受付', memo:'BGMで歓談。会費 → リストバンド → ビンゴカード'},
   {mode:'staff', t:'19:55', what:'乾杯の準備', who:'MC', memo:'全員にドリンクを持ってもらうよう声かけ'},
   {mode:'staff', t:'20:00', what:'新郎新婦 到着 → 入場 → 乾杯', who:'MC・乾杯', memo:'MCが呼び込み → 新郎新婦ひと言 → 乾杯。到着は20:15〜20:30になる可能性あり'},
   {mode:'staff', t:'20:10', what:'DJ FUJII', who:'タイムキーパー', memo:'乾杯直後にスタート'},
   {mode:'staff', t:'20:40', what:'DJ MORIZO', who:'タイムキーパー', memo:'5分前に次のDJへ声かけ'},
-  {mode:'staff', t:'21:15', what:'ビンゴの準備', who:'MC・幹事', memo:'抽選の道具と景品を前に用意、マイクをMCへ'},
-  {mode:'staff', t:'21:20', what:'BREAK：ビンゴ大会', who:'MC', memo:'DJの音を下げてスタート（進め方はメモ参照）'},
+  {mode:'staff', t:'21:15', what:'ビンゴの準備', who:'幹事', memo:'抽選の道具と景品を前に用意。もりぞーのDJが終わったらマイクを渡す'},
+  {mode:'staff', t:'21:20', what:'BREAK：ビンゴ大会', who:'もりぞー', memo:'DJの音を下げてスタート（進め方はメモ参照）'},
   {mode:'staff', t:'21:40', what:'DJ YUKO & MAHO', who:'タイムキーパー', memo:'ビンゴが押したらここで調整'},
   {mode:'staff', t:'22:00', what:'テラスを閉める', who:'幹事', memo:'テラスは22時まで'},
   {mode:'staff', t:'22:20', what:'DJ OKAZAKI（feat. 泥酔トラベル）', who:'タイムキーパー', memo:'最後のDJ。22:55に「あと1曲」の合図'},
@@ -656,7 +659,8 @@ function route(){
     count:   '受付カウンター｜LONG BODY DACHSHUND MUSIC'
   }[mode];
   const btn = document.getElementById('modeBtn');
-  btn.hidden = mode === 'staff' || mode === 'count';
+  // Guests who opened the party link directly never see the 披露宴 button.
+  btn.hidden = mode === 'staff' || mode === 'count' || (mode === 'party' && ENTRY_PARTY);
   const cbtn = document.getElementById('countBtn');
   cbtn.hidden = !(mode === 'staff' || mode === 'count');
   cbtn.href = mode === 'count' ? '#staff-dachs' : '#staff-count';
