@@ -190,6 +190,8 @@ details.fold[open] summary{margin-bottom:10px}
 .memo summary{font-weight:900;cursor:pointer;font-size:14px}
 .memo ol,.memo ul{margin:8px 0 2px;padding-left:20px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
 .memo li b{color:var(--ink)}
+.memo li ul{margin:4px 0 0;padding-left:16px;list-style:disc}
+.memo .note{margin:8px 0 2px;font-size:12px;color:var(--muted);background:var(--gold-soft);border-radius:8px;padding:8px 10px}
 
 .count-sum{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:inherit}
 .count-sum .num{grid-row:span 2;font-family:var(--block);font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
@@ -319,11 +321,11 @@ details.fold[open] summary{margin-bottom:10px}
   <section class="s-sec">
     <details class="fold"><summary>概要</summary>
     <dl class="kv">
-      <dt>日時</dt><dd>11/15（日）19:30 OPEN〜23:00 CLOSE　<b>23:30完全撤収</b></dd>
+      <dt>日時</dt><dd>11/15（日）19:30 OPEN〜23:00 CLOSE（22:45 締めの挨拶）　<b>23:30完全撤収</b></dd>
       <dt>会場</dt><dd>CityCamp Bar（恵比寿南1-13-3 GOLD 3F／JR恵比寿駅 西口 徒歩3分）</dd>
       <dt>会費</dt><dd>¥4,500（現金 or PayPay）</dd>
-      <dt>プラン</dt><dd>4時間貸切＋50名分の3時間飲み放題＋軽食3品（支払い済み）</dd>
-      <dt>追加料金</dt><dd>51人目から +¥3,000/人、ビール付きは +¥1,100/人（当日精算・人数はリストバンドの数）</dd>
+      <dt>プラン</dt><dd>4時間貸切＋50名分の3時間飲み放題（19:30〜22:30・会場に確認中）＋軽食3品（支払い済み）</dd>
+      <dt>追加料金</dt><dd>51人目から +¥3,000/人（当日精算・人数はリストバンドの数）。ビールは付けない</dd>
       <dt>会場担当</dt><dd>柏原さん（CityCamp 公式LINE）</dd>
     </dl>
     </details>
@@ -333,9 +335,11 @@ details.fold[open] summary{margin-bottom:10px}
     <details class="fold"><summary>担当</summary>
     <div class="roles">
       <div class="role"><span class="r">幹事</span><span class="p">新郎新婦</span><span class="d">進行管理・会場とのやり取り・精算</span></div>
-      <div class="role"><span class="r">MC</span><span class="p">Tomoko &amp; Chissu</span><span class="d">最初の進行（乾杯の呼びかけ）・締め</span></div>
+      <div class="role"><span class="r">MC</span><span class="p">Tomoko &amp; Chissu</span><span class="d">最初の進行（アナウンス・乾杯の呼びかけ）・締め</span></div>
       <div class="role"><span class="r">ビンゴ司会</span><span class="p">もりぞー</span><span class="d">DJ MORIZOの出番のあと、そのまま司会へ</span></div>
-      <div class="role"><span class="r">受付・会費</span><span class="p">品田豪さん</span><span class="d">会費・リストバンド・ビンゴカード</span></div>
+      <div class="role"><span class="r">受付・会費</span><span class="p">品田豪さん・ひろきち</span><span class="d">会費・受付表・リストバンド・ビンゴカード</span></div>
+      <div class="role"><span class="r">テラス</span><span class="p">Tomoko</span><span class="d">22時にテラスを閉める</span></div>
+      <div class="role"><span class="r">DJの紹介</span><span class="p">新郎新婦</span><span class="d">各DJの出番の前に紹介</span></div>
       <div class="role"><span class="r">乾杯の発声</span><span class="p">新郎新婦</span><span class="d">20:00ごろの乾杯</span></div>
       <div class="role"><span class="r">タイムキーパー</span><span class="p">ひろきち</span><span class="d">DJの切り替えの合図</span></div>
       <div class="role"><span class="r">撤収・忘れ物</span><span class="p">新郎新婦</span><span class="d">23:30までに現状復帰</span></div>
@@ -346,40 +350,52 @@ details.fold[open] summary{margin-bottom:10px}
   <section class="s-sec">
     <h2>メモ</h2>
     <div class="memo">
-      <details open><summary>受付の流れ</summary>
+      <details open><summary>受付の流れ（豪さん・ひろきち）</summary>
         <ol>
-          <li>名簿で名前を確認（なければ追記して受付OK）</li>
-          <li>会費¥4,500を受け取る。現金はおつりを渡して現金袋へ。PayPayは送金完了画面で<b>¥4,500・宛先が新郎</b>を確認</li>
-          <li>名簿の「現金／PayPay」にチェック</li>
-          <li>リストバンドとビンゴカードを渡す（<b>リストバンドは必ず1人1本</b>）</li>
-        </ol></details>
-      <details><summary>ビンゴ大会（21:20〜21:40）</summary>
+          <li><b>名前を聞いて、受付表で確認</b>。名簿にない人は名前を追記してOK</li>
+          <li><b>会費¥4,500を受け取る</b>
+            <ul>
+              <li>現金：受け取る → おつりを渡す → 現金袋へ</li>
+              <li>PayPay：新郎のQRを読み取ってもらう → 送金完了画面で<b>¥4,500・宛先が新郎</b>を確認</li>
+              <li>その場で払えない人：「後払い・その他」に印をつけて、事情をメモ（あとで新郎に払う、など）</li>
+            </ul>
+          </li>
+          <li><b>受付表の支払い方法</b>（現金／PayPay／後払い・その他）にチェック</li>
+          <li><b>受付カウンター</b>（このページ右上の「受付」）で、現金かPayPayの「＋」を1回押す。後払いの人は、払ってもらった時点で押す</li>
+          <li><b>リストバンドとビンゴカードを渡す</b>（<b>リストバンドは必ず1人1本</b>）</li>
+          <li>ひと言アナウンス：「ドリンクはもう飲んでOKです！」「席は女性優先でお願いします」</li>
+        </ol>
+        <p class="note">列ができたら、ひろきちがPayPayの確認、豪さんが現金と受付表、のように分かれるとスムーズ。ひろきちは20:10からタイムキーパーもあるので、それまでに受付を落ち着かせる</p>
+      </details>
+      <details><summary>ビンゴ大会（21:15〜21:35）</summary>
         <ol>
+          <li>DJの音を止めて、懐かしソングのプレイリストを小さめに流す</li>
           <li>もりぞーが開始を宣言し、景品を紹介（2分）</li>
           <li>番号をテンポよく読み上げる。リーチの人は挙手</li>
           <li>ビンゴが出たら前へ。カードを確認して新郎新婦から景品を手渡し</li>
-          <li>21:35で景品が残っていたら、リーチの人どうしでじゃんけん</li>
-          <li>21:40にDJ YUKO & MAHOへバトンタッチ</li>
+          <li>21:30で景品が残っていたら、リーチの人どうしでじゃんけん</li>
+          <li>21:35にDJ YUKO & MAHOへバトンタッチ</li>
         </ol></details>
       <details><summary>会場ルール</summary>
         <ul>
           <li>準備の入室は19:00から</li>
           <li>ドリンク・フードの持ち込みは原則禁止</li>
           <li>会場への支払いはキャッシュレスのみ</li>
-          <li><b>テラスは22時まで</b>。DJ中はテラスを閉める</li>
+          <li><b>テラスは22時まで</b>（閉めるのはTomoko）。騒がない。DJ中はテラスを閉める</li>
           <li>音量注意。近隣から苦情が入ると即撤収</li>
         </ul></details>
       <details><summary>持ち物</summary>
         <ul>
           <li>会費POP（2枚）・PayPayの受け取り用QR</li>
-          <li>名簿（現金／PayPayのチェック欄付き）・ペン</li>
+          <li>受付表（名簿＋支払い方法：現金／PayPay／後払い・その他）・ペン</li>
           <li>おつり（500円玉多め・千円札）と現金袋</li>
           <li>ビンゴカード（50枚以上）・抽選の道具・景品</li>
           <li>フライヤー（A3）・豪さんのタクシー代</li>
+          <li>プロジェクター用：新郎のスマホと接続ケーブル（USB-C／HDMI）・懐かしソングのプレイリスト</li>
         </ul></details>
       <details><summary>撤収（23:30まで）</summary>
         <ul>
-          <li>当日精算（51人目以降の追加分・ビール）</li>
+          <li>当日精算（51人目以降の追加分）</li>
           <li>フライヤーなどをはがして現状復帰、DJ機材を元に戻す</li>
           <li>忘れ物チェック（席・トイレ・テラス）</li>
           <li>現金と名簿を新郎に渡す</li>
@@ -543,25 +559,27 @@ const EVENTS = [
   {mode:'party', t:'20:00', what:'新郎新婦 到着・乾杯'},
   {mode:'party', t:'20:10', what:'DJ FUJII', dj:'FUJII'},
   {mode:'party', t:'20:40', what:'DJ MORIZO', dj:'MORIZO'},
-  {mode:'party', t:'21:20', what:'BREAK：ビンゴ大会', accent:true},
-  {mode:'party', t:'21:40', what:'DJ YUKO & MAHO', dj:'YUKO & MAHO'},
-  {mode:'party', t:'22:20', what:'DJ OKAZAKI', dj:'OKAZAKI', feat:'（feat. 泥酔トラベル）'},
+  {mode:'party', t:'21:15', what:'BREAK：ビンゴ大会', accent:true},
+  {mode:'party', t:'21:35', what:'DJ YUKO & MAHO', dj:'YUKO & MAHO'},
+  {mode:'party', t:'22:10', what:'DJ OKAZAKI', dj:'OKAZAKI', feat:'（feat. 泥酔トラベル）'},
+  {mode:'party', t:'22:45', what:'締めの挨拶'},
   {mode:'party', t:'23:00', what:'CLOSE'},
   {mode:'staff', t:'18:30', what:'豪さん 八芳園を出発', who:'豪さん', memo:'タクシーで恵比寿へ（タクシー代は新郎から）'},
-  {mode:'staff', t:'19:00', what:'入室・準備開始', who:'豪さん・DJ陣', memo:'受付の設置（会費POP・名簿・おつり・PayPayのQR）、リストバンドを会場から受け取る、フライヤーを貼る。DJ陣とひろきちも先入りOK（機材チェック・荷物を置いてゆったり）'},
-  {mode:'staff', t:'19:15', what:'会場と最終確認', who:'会場にいるみんな', memo:'飲み放題の開始時刻、精算の方法、テラスの扱い'},
-  {mode:'staff', t:'19:30', what:'OPEN・受付開始', who:'受付', memo:'BGMで歓談。会費 → リストバンド → ビンゴカード'},
-  {mode:'staff', t:'19:55', what:'乾杯の準備', who:'MC', memo:'全員にドリンクを持ってもらうよう声かけ'},
-  {mode:'staff', t:'20:00', what:'新郎新婦 到着 → 入場 → 乾杯', who:'MC・乾杯', memo:'MCが呼び込み → 新郎新婦ひと言 → 乾杯。到着は20:15〜20:30になる可能性あり'},
-  {mode:'staff', t:'20:10', what:'DJ FUJII', who:'タイムキーパー', memo:'乾杯直後にスタート'},
-  {mode:'staff', t:'20:40', what:'DJ MORIZO', who:'タイムキーパー', memo:'5分前に次のDJへ声かけ'},
-  {mode:'staff', t:'21:15', what:'ビンゴの準備', who:'幹事', memo:'抽選の道具と景品を前に用意。もりぞーのDJが終わったらマイクを渡す'},
-  {mode:'staff', t:'21:20', what:'BREAK：ビンゴ大会', who:'もりぞー', memo:'DJの音を下げてスタート（進め方はメモ参照）'},
-  {mode:'staff', t:'21:40', what:'DJ YUKO & MAHO', who:'タイムキーパー', memo:'ビンゴが押したらここで調整'},
-  {mode:'staff', t:'22:00', what:'テラスを閉める', who:'幹事', memo:'テラスは22時まで'},
-  {mode:'staff', t:'22:20', what:'DJ OKAZAKI（feat. 泥酔トラベル）', who:'タイムキーパー', memo:'最後のDJ。22:55に「あと1曲」の合図'},
-  {mode:'staff', t:'23:00', what:'CLOSE・締めの挨拶', who:'MC・新郎新婦', memo:'音を止めてMC → 新郎新婦ひと言 → 解散の案内'},
-  {mode:'staff', t:'23:05', what:'撤収・当日精算', who:'幹事・撤収係', memo:'追加分・ビールの精算、忘れ物チェック、ゲストの退出を促す'},
+  {mode:'staff', t:'19:00', what:'入室・準備開始', who:'豪さん・ひろきち', memo:'受付の設置（会費POP・受付表・おつり・PayPayのQR）、リストバンドを会場から受け取る、フライヤーを貼る。DJ陣も先入りOK（機材チェック・荷物を置いてゆったり）'},
+  {mode:'staff', t:'19:15', what:'会場と最終確認', who:'会場にいるみんな', memo:'飲み放題19:30〜22:30（22:30がラストオーダーか飲み終わりか）、プロジェクターの接続、テラスの扱い'},
+  {mode:'staff', t:'19:30', what:'OPEN・受付開始・飲み放題スタート', who:'豪さん・ひろきち', memo:'来た人から飲んでOK。受付の流れはメモ参照。席は女性優先（男性は立ちメイン。新郎新婦の到着後は新郎が案内）'},
+  {mode:'staff', t:'19:55', what:'乾杯の準備', who:'MC', memo:'「乾杯は新郎新婦が来るまで待ちます。それまで飲んでてOK！」とアナウンス。全員にドリンクを持ってもらう'},
+  {mode:'staff', t:'20:00', what:'新郎新婦 到着 → 入場 → 乾杯', who:'MC・DJ', memo:'入場曲はビヨンセ（曲は新郎から共有）。音量を上げて入場 → MCが呼び込み → 新郎新婦ひと言 → 新郎新婦の発声で乾杯。遅れたらDJ FUJIIを先に始めて、乾杯だけ待つ'},
+  {mode:'staff', t:'20:10', what:'DJ FUJII', who:'タイムキーパー', memo:'新郎新婦からDJを紹介 → スタート（30分）'},
+  {mode:'staff', t:'20:40', what:'DJ MORIZO', who:'タイムキーパー', memo:'新郎新婦からDJを紹介（35分）。終わったらもりぞーはそのままビンゴの司会へ'},
+  {mode:'staff', t:'21:10', what:'ビンゴの準備', who:'幹事', memo:'抽選の道具と景品を前に用意。懐かしソングのプレイリストを準備。もりぞーのDJが終わったらマイクを渡す'},
+  {mode:'staff', t:'21:15', what:'BREAK：ビンゴ大会', who:'もりぞー', memo:'DJの音を止めて、懐かしソングのプレイリストを小さめに流す（進め方はメモ参照）'},
+  {mode:'staff', t:'21:35', what:'DJ YUKO & MAHO', who:'タイムキーパー', memo:'新郎新婦からDJを紹介（35分）。ビンゴが押したらここで調整'},
+  {mode:'staff', t:'22:00', what:'テラスを閉める', who:'Tomoko', memo:'テラスは22時まで'},
+  {mode:'staff', t:'22:10', what:'DJ OKAZAKI（feat. 泥酔トラベル）', who:'タイムキーパー', memo:'新郎新婦からDJを紹介（35分）。最後のDJ。22:40に「あと1曲」の合図'},
+  {mode:'staff', t:'22:30', what:'飲み放題 終了', who:'幹事', memo:'22:30がラストオーダーか飲み終わりかは会場に確認中'},
+  {mode:'staff', t:'22:45', what:'締めの挨拶', who:'MC・新郎新婦', memo:'音を止めてMC → 新郎新婦ひと言 → 解散の案内。3次会に行く人の人数を新郎新婦が把握'},
+  {mode:'staff', t:'23:00', what:'ゲスト退出・当日精算', who:'幹事・撤収係', memo:'51人目からの追加分の精算、忘れ物チェック、ゲストの退出を促す'},
   {mode:'staff', t:'23:30', what:'完全撤収', who:'全員', memo:'現状復帰して退出'},
 ].map(e => ({...e, at: D(e.t)}));
 
