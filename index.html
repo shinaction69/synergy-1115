@@ -206,9 +206,21 @@ ol.st li.current .who{background:var(--gold)}
 details.fold{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
 details.fold summary{font-family:var(--block);font-size:14px;letter-spacing:.2em;color:var(--gold);cursor:pointer}
 details.fold[open] summary{margin-bottom:10px}
-.memo details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
-.memo summary{font-weight:900;cursor:pointer;font-size:14px}
-.memo ol,.memo ul{margin:8px 0 2px;padding-left:20px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.memo details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0;scroll-margin-top:130px}
+.memo details[open]{border-color:var(--gold)}
+.memo summary{list-style:none;display:flex;align-items:center;gap:10px;font-weight:900;cursor:pointer;font-size:15px;padding:13px 14px;-webkit-tap-highlight-color:transparent}
+.memo summary::-webkit-details-marker{display:none}
+.memo summary::after{content:"▾";margin-left:auto;font-size:12px;color:var(--muted);transition:transform .2s}
+.memo details[open] summary::after{transform:rotate(180deg)}
+.memo .mi{font-size:17px;line-height:1}
+.memo details>:not(summary){margin-left:14px;margin-right:14px}
+.memo details>:last-child{margin-bottom:14px}
+.memo ol,.memo ul{margin:0 0 4px;padding-left:20px;font-size:14px;line-height:1.7;color:var(--ink);display:flex;flex-direction:column;gap:6px}
+.memo-nav{display:flex;flex-wrap:wrap;gap:8px}
+.memo-nav button{font:inherit;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.memo-nav button:active{background:var(--gold-soft)}
+.memo-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.memo-links a{display:flex;align-items:center;justify-content:center;text-align:center;gap:4px;min-height:44px;padding:8px 6px;border-radius:10px;background:var(--gold);color:var(--surface);font-size:13.5px;font-weight:700;text-decoration:none;line-height:1.3;white-space:nowrap}
 .memo li b{color:var(--ink)}
 .memo li ul{margin:4px 0 0;padding-left:16px;list-style:disc}
 .memo a.maplink{display:inline-block;margin-top:4px;background:var(--gold);color:var(--surface);padding:8px 16px;border-radius:99px;font-size:13px;font-weight:700;text-decoration:none}
@@ -394,8 +406,10 @@ details.fold[open] summary{margin-bottom:10px}
 
   <section class="s-sec">
     <h2>メモ</h2>
+    <nav class="memo-nav" aria-label="メモの項目へ移動"><button type="button" data-t="m-uke"><span aria-hidden="true">🧾</span>受付</button><button type="button" data-t="m-bingo"><span aria-hidden="true">🎲</span>ビンゴ</button><button type="button" data-t="m-map"><span aria-hidden="true">🗺️</span>エリア図</button><button type="button" data-t="m-drink"><span aria-hidden="true">🍺</span>飲み放題</button><button type="button" data-t="m-gear"><span aria-hidden="true">🎛️</span>備品</button><button type="button" data-t="m-rule"><span aria-hidden="true">📏</span>ルール</button><button type="button" data-t="m-bag"><span aria-hidden="true">🎒</span>持ち物</button><button type="button" data-t="m-end"><span aria-hidden="true">🧹</span>撤収</button></nav>
+    <div class="memo-links"><a href="https://docs.google.com/presentation/d/1xoYfJvoFQ0hL4hPani7i-RD2Agn2dC0Dmy1CqlIwvEw/edit?slide=id.g323cdf1801d_0_508" target="_blank" rel="noopener">🗺️ エリア図</a><a href="#staff-count">👥 受付</a><a href="https://www.weddingshare.me/weddings/dxnptktnwicr0grh/mm2fWkzwInvKavu8uPR6DRfjzScwnRJk?openExternalBrowser=1&amp;type=qr" target="_blank" rel="noopener">📸 写真</a></div>
     <div class="memo">
-      <details open><summary>受付の流れ（豪さん・ひろきち）</summary>
+      <details open id="m-uke"><summary><span class="mi" aria-hidden="true">🧾</span>受付の流れ（豪さん・ひろきち）</summary>
         <ol>
           <li><b>名前を聞いて、受付表で確認</b>。名簿にない人は名前を追記してOK</li>
           <li><b>会費¥4,500を受け取る</b>
@@ -412,7 +426,7 @@ details.fold[open] summary{margin-bottom:10px}
         </ol>
         <p class="note">列ができたら、ひろきちがPayPayの確認、豪さんが現金と受付表、のように分かれるとスムーズ。ひろきちは20:10からタイムキーパーもあるので、それまでに受付を落ち着かせる</p>
       </details>
-      <details><summary>ビンゴ大会（21:15〜21:35）</summary>
+      <details id="m-bingo"><summary><span class="mi" aria-hidden="true">🎲</span>ビンゴ大会（21:15〜21:35）</summary>
         <ol>
           <li>ビンゴカードは<b>受付で配布済み</b>。持っていない人・なくした人には予備を渡す</li>
           <li>DJの音を止めて、懐かしソングのプレイリストを小さめに流す</li>
@@ -423,7 +437,7 @@ details.fold[open] summary{margin-bottom:10px}
           <li>21:35にDJ YUKO & MAHOへバトンタッチ</li>
         </ol>
         <p class="note"><b>景品</b><br>🥇 1等：Amazonギフトカード 5,000円<br>🥈 2等：スタバカード 3,000円<br>🥉 3等：なんじゃもんじゃ<br>4等：バスソルト（4名）<br>5等以下：プチ景品（11/14に買う予定）<br>発表は4等から→最後に1等、の順も盛り上がる</p></details>
-      <details><summary>会場のエリア図</summary>
+      <details id="m-map"><summary><span class="mi" aria-hidden="true">🗺️</span>会場のエリア図</summary>
         <ul>
           <li><b>A</b>：焚き火を囲む席（9〜14名）</li>
           <li><b>B</b>：ソファ席（2〜5名・店の真ん中）</li>
@@ -436,7 +450,7 @@ details.fold[open] summary{margin-bottom:10px}
         </ul>
         <p><a class="maplink" href="https://docs.google.com/presentation/d/1xoYfJvoFQ0hL4hPani7i-RD2Agn2dC0Dmy1CqlIwvEw/edit?slide=id.g323cdf1801d_0_508" target="_blank" rel="noopener">エリア図をひらく（会場の利用案内 8ページ目）</a></p>
       </details>
-      <details><summary>飲み放題ルール</summary>
+      <details id="m-drink"><summary><span class="mi" aria-hidden="true">🍺</span>飲み放題ルール</summary>
         <ul>
           <li><b>注文は19:30〜22:30</b>（22:30がラストオーダー）。<b>23:00まで飲んでOK</b>、撤収は23:30</li>
           <li><b>グラス交換制</b>。バーカウンターに自分で取りに行く</li>
@@ -444,7 +458,7 @@ details.fold[open] summary{margin-bottom:10px}
           <li>リストバンドは全員同じ（ビールで分けない）</li>
         </ul>
       </details>
-      <details><summary>備品（会場の機材）</summary>
+      <details id="m-gear"><summary><span class="mi" aria-hidden="true">🎛️</span>備品（会場の機材）</summary>
         <ul>
           <li><b>DJブース</b>：Pioneer XDJ-RX3</li>
           <li><b>ミキサー</b>：ZOOM LiveTrak L-20</li>
@@ -454,7 +468,7 @@ details.fold[open] summary{margin-bottom:10px}
           <li>機材はどれも無料で使える</li>
         </ul>
       </details>
-      <details><summary>会場ルール</summary>
+      <details id="m-rule"><summary><span class="mi" aria-hidden="true">📏</span>会場ルール</summary>
         <ul>
           <li>準備の入室は19:00から</li>
           <li>ドリンク・フードの持ち込みは原則禁止</li>
@@ -465,7 +479,7 @@ details.fold[open] summary{margin-bottom:10px}
           <li>※テラスと再入場のルールは、11/13に管理会社の指示で変更になったもの</li>
           <li>音量注意。近隣から苦情が入ると即撤収</li>
         </ul></details>
-      <details><summary>持ち物</summary>
+      <details id="m-bag"><summary><span class="mi" aria-hidden="true">🎒</span>持ち物</summary>
         <ul>
           <li>会費POP（2枚）・PayPayの受け取り用QR</li>
           <li>受付表（名簿＋支払い方法：現金／PayPay／後払い・その他）・ペン</li>
@@ -474,7 +488,7 @@ details.fold[open] summary{margin-bottom:10px}
           <li>フライヤー（A3）・豪さんのタクシー代</li>
           <li>プロジェクター用：新郎のスマホと接続ケーブル（USB-C／HDMI）・懐かしソングのプレイリスト</li>
         </ul></details>
-      <details><summary>撤収（23:30まで）</summary>
+      <details id="m-end"><summary><span class="mi" aria-hidden="true">🧹</span>撤収（23:30まで）</summary>
         <ul>
           <li>当日精算（51人目以降の追加分）</li>
           <li>フライヤーなどをはがして現状復帰、DJ機材を元に戻す</li>
@@ -681,6 +695,12 @@ EVENTS.forEach((e, i) => {
   st.append(li);
   wireMemo(li, e);
 });
+
+// Memo quick nav: open the chosen memo and scroll to it (no hash change; the hash picks the page mode)
+document.querySelectorAll('.memo-nav button').forEach(b => b.addEventListener('click', () => {
+  const d = document.getElementById(b.dataset.t); if (!d) return;
+  d.open = true; d.scrollIntoView({behavior:'smooth', block:'start'});
+}));
 
 // ---- Staff memos: tap a row to open its memo; 編集 → 保存 writes it to the sheet ----
 function autosize(ta){ if (ta.offsetParent === null) return; ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 2 + 'px'; }
