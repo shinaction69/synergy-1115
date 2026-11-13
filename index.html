@@ -185,6 +185,8 @@ ol.st li,.mp{min-width:0;max-width:100%}
   #count.wrap{max-width:720px}
 }
 ol.st .t{font-family:var(--block);font-size:16px;font-variant-numeric:tabular-nums;color:var(--muted);line-height:1.4}
+ol.st .t{white-space:nowrap}
+ol.st .t .approx{font-size:11px;font-weight:700;margin-left:1px}
 ol.st .c{min-width:0;display:flex;flex-direction:column;gap:2px}
 ol.st .w{font-weight:900;font-size:16px;line-height:1.4}
 ol.st .who{align-self:flex-start;font-size:11px;font-weight:700;color:var(--surface);background:var(--muted);border-radius:99px;padding:0 8px}
@@ -591,7 +593,7 @@ const EVENTS = [
   {mode:'party', t:'22:45', what:'締めの挨拶'},
   {mode:'party', t:'23:00', what:'CLOSE'},
   {mode:'staff', t:'18:45', what:'豪さん・もりぞー・ひろきち 八芳園を出発', who:'豪さん・もりぞー・ひろきち', memo:'3人で一緒にタクシーで恵比寿へ（約15分・タクシー代は新郎から）'},
-  {mode:'staff', t:'19:00', what:'入室・準備開始', who:'もりぞー・ひろきち', memo:'受付の設置（会費POP・受付表・おつり・PayPayのQR）、リストバンドを会場から受け取る、フライヤーを貼る。DJ陣も先入りOK（機材チェック・荷物を置いてゆったり）'},
+  {mode:'staff', t:'19:00', approx:true, what:'入室・準備開始', who:'もりぞー・ひろきち', memo:'受付の設置（会費POP・受付表・おつり・PayPayのQR）、リストバンドを会場から受け取る、フライヤーを貼る。DJ陣も先入りOK（機材チェック・荷物を置いてゆったり）'},
   {mode:'staff', t:'19:15', what:'会場と最終確認', who:'会場にいるみんな', memo:'飲み放題19:30〜22:30（22:30がラストオーダーか飲み終わりか）、プロジェクターの接続、テラスの扱い'},
   {mode:'staff', t:'19:30', what:'OPEN・受付開始・飲み放題スタート', who:'豪さん・ひろきち', memo:'来た人から飲んでOK。受付の流れはメモ参照。席は女性優先（男性は立ちメイン。新郎新婦の到着後は新郎が案内）'},
   {mode:'staff', t:'19:55', what:'乾杯の準備', who:'MC', memo:'「乾杯は新郎新婦が来るまで待ちます。それまで飲んでてOK！」とアナウンス。全員にドリンクを持ってもらう'},
@@ -618,6 +620,7 @@ EVENTS.forEach((e, i) => {
     + '<div class="mp" hidden><textarea readonly rows="2" aria-label="メモ" placeholder="メモなし"></textarea>'
     + '<div class="acts"><span class="msg" role="status"></span><button type="button" class="cancel" hidden>キャンセル</button><button type="button" class="edit">編集</button><button type="button" class="save" hidden>保存</button></div></div>';
   li.querySelector('.t').textContent = e.t;
+  if (e.approx){ const a = document.createElement('small'); a.className = 'approx'; a.textContent = '頃'; li.querySelector('.t').append(a); }
   li.querySelector('.wt').textContent = e.what;
   li.querySelector('.who').textContent = e.who;
   st.append(li);
