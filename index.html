@@ -366,7 +366,7 @@ details.fold[open] summary{margin-bottom:10px}
       <div class="role"><span class="r">ビンゴ司会</span><span class="p">もりぞー</span><span class="d">DJ MORIZOの出番のあと、そのまま司会へ</span></div>
       <div class="role"><span class="r">受付の準備</span><span class="p">もりぞー・ひろきち</span><span class="d">19:00入室。受付の設置・リストバンドの受け取り・フライヤー貼り（18:45に豪さんと一緒に八芳園を出発）</span></div>
       <div class="role"><span class="r">受付・会費</span><span class="p">品田豪さん・ひろきち</span><span class="d">会費・受付表・リストバンド・ビンゴカード</span></div>
-      <div class="role"><span class="r">テラス</span><span class="p">Tomoko</span><span class="d">22時にテラスを閉める</span></div>
+      <div class="role"><span class="r">テラス</span><span class="p">Tomoko</span><span class="d">22時にテラスを閉める。22:30以降は再入場禁止</span></div>
       <div class="role"><span class="r">DJの紹介</span><span class="p">新郎新婦</span><span class="d">各DJの出番の前に紹介</span></div>
       <div class="role"><span class="r">乾杯の発声</span><span class="p">新郎新婦</span><span class="d">20:00ごろの乾杯</span></div>
       <div class="role"><span class="r">タイムキーパー</span><span class="p">ひろきち</span><span class="d">DJの切り替えの合図</span></div>
@@ -409,7 +409,10 @@ details.fold[open] summary{margin-bottom:10px}
           <li>準備の入室は19:00から</li>
           <li>ドリンク・フードの持ち込みは原則禁止</li>
           <li>会場への支払いはキャッシュレスのみ</li>
-          <li><b>テラスは22時まで</b>（閉めるのはTomoko）。騒がない。DJ中はテラスを閉める</li>
+          <li><b>テラスは22時で終了</b>（閉めるのはTomoko）。騒がない。DJ中はテラスを閉める</li>
+          <li><b>22:30以降は再入場禁止</b>（喫煙などで1階付近に人がたまらないように）。外に出たら戻れない</li>
+          <li>22時以降、<b>電子タバコのみ店内OK</b>にできる（お店に回答が必要・未定）</li>
+          <li>※テラスと再入場のルールは、11/13に管理会社の指示で変更になったもの</li>
           <li>音量注意。近隣から苦情が入ると即撤収</li>
         </ul></details>
       <details><summary>持ち物</summary>
@@ -604,9 +607,10 @@ const EVENTS = [
   {mode:'staff', t:'21:10', what:'ビンゴの準備', who:'新郎新婦', memo:'抽選の道具と景品を前に用意。懐かしソングのプレイリストを準備。もりぞーのDJが終わったらマイクを渡す'},
   {mode:'staff', t:'21:15', what:'BREAK：ビンゴ大会', who:'もりぞー', memo:'DJの音を止めて、懐かしソングのプレイリストを小さめに流す（進め方はメモ参照）'},
   {mode:'staff', t:'21:35', what:'DJ YUKO & MAHO', who:'タイムキーパー', memo:'新郎新婦からDJを紹介（35分）。ビンゴが押したらここで調整'},
-  {mode:'staff', t:'22:00', what:'テラスを閉める', who:'Tomoko', memo:'テラスは22時まで'},
+  {mode:'staff', t:'22:00', what:'テラスを閉める', who:'Tomoko', memo:'テラスは22時で終了（管理会社の指示）。「22:30以降は外に出たら戻れません」とアナウンス'},
   {mode:'staff', t:'22:10', what:'DJ OKAZAKI（feat. 泥酔トラベル）', who:'タイムキーパー', memo:'新郎新婦からDJを紹介（35分）。最後のDJ。22:40に「あと1曲」の合図'},
   {mode:'staff', t:'22:30', what:'飲み放題 終了', who:'新郎新婦', memo:'22:30がラストオーダーか飲み終わりかは会場に確認中'},
+  {mode:'staff', t:'22:30', what:'再入場禁止（外に出たら戻れない）', who:'全員', memo:'喫煙などで1階付近に人がたまらないようにするため（管理会社の指示）。22:30以降に外へ出た人は戻れない'},
   {mode:'staff', t:'22:45', what:'締めの挨拶', who:'MC・新郎新婦', memo:'音を止めてMC → 新郎新婦ひと言 → 解散の案内。3次会に行く人の人数を新郎新婦が把握'},
   {mode:'staff', t:'23:00', what:'ゲスト退出・当日精算', who:'新郎新婦', memo:'51人目からの追加分の精算、忘れ物チェック、ゲストの退出を促す'},
   {mode:'staff', t:'23:30', what:'完全撤収', who:'全員', memo:'現状復帰して退出'},
