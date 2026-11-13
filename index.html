@@ -122,6 +122,12 @@ ol.tt li.accent .t,ol.tt li.accent .n{color:var(--gold)}
 ol.tt li.past{opacity:.4}
 ol.tt li.current{background:var(--now-soft)}
 ol.tt li.current .t::after{content:"NOW";display:block;font-size:10px;letter-spacing:.2em;color:var(--gold)}
+.bingo-lede{margin:-8px 0 0;font-size:13px;color:var(--muted)}
+.prizes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.prizes li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:baseline;padding:11px 2px;border-bottom:1px solid var(--line)}
+.prizes .rk{font-family:var(--block);font-size:18px;color:var(--gold);letter-spacing:.04em}
+.prizes .it{font-size:15px;font-weight:700;color:var(--ink)}
+.prizes .it b{font-family:var(--block);font-weight:400;font-size:18px;margin-left:8px}
 .venue{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
 .venue b{font-family:var(--block);font-size:22px;color:var(--ink);font-weight:400}
 .venue a{color:var(--gold);font-weight:700;text-decoration:none}
@@ -317,6 +323,15 @@ details.fold[open] summary{margin-bottom:10px}
   </div>
   <div class="p-head">TIME TABLE</div>
   <ol class="tt" id="tt"></ol>
+  <div class="p-head">BINGO PRIZES</div>
+  <p class="bingo-lede">21:15〜 BREAKはビンゴ大会！カードは受付でお渡しします</p>
+  <ol class="prizes">
+    <li><span class="rk">1ST</span><span class="it">Amazonギフトカード<b>¥5,000</b></span></li>
+    <li><span class="rk">2ND</span><span class="it">スタバカード<b>¥3,000</b></span></li>
+    <li><span class="rk">3RD</span><span class="it">なんじゃもんじゃ</span></li>
+    <li><span class="rk">4TH</span><span class="it">バスソルト<b>×4</b></span></li>
+    <li><span class="rk">5TH〜</span><span class="it">プチ景品いろいろ</span></li>
+  </ol>
   <div class="venue">
     <b>CityCamp Bar</b>
     恵比寿の焚き火バー／東京都渋谷区恵比寿南1-13-3 GOLD 3F／JR恵比寿駅 西口 徒歩3分
