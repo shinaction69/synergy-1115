@@ -216,6 +216,8 @@ details.fold[open] summary{margin-bottom:10px}
 .memo details>:not(summary){margin-left:14px;margin-right:14px}
 .memo details>:last-child{margin-bottom:14px}
 .memo ol,.memo ul{margin:0 0 4px;padding-left:20px;font-size:14px;line-height:1.7;color:var(--ink);display:flex;flex-direction:column;gap:6px}
+.quick{display:flex;flex-direction:column;gap:8px}
+.quick-k{margin:0;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em}
 .memo-nav{display:flex;flex-wrap:wrap;gap:8px}
 .memo-nav button{font:inherit;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
 .memo-nav button:active{background:var(--gold-soft)}
@@ -368,6 +370,11 @@ details.fold[open] summary{margin-bottom:10px}
       <span class="lbl">受付済み</span>
       <span class="sub">現金 <b class="js-cash">0</b>人・PayPay <b class="js-paypay">0</b>人</span>
     </div>
+    <div class="quick">
+      <p class="quick-k">メモにジャンプ</p>
+      <nav class="memo-nav" aria-label="メモの項目へ移動"><button type="button" data-t="m-uke"><span aria-hidden="true">🧾</span>受付</button><button type="button" data-t="m-bingo"><span aria-hidden="true">🎲</span>ビンゴ</button><button type="button" data-t="m-map"><span aria-hidden="true">🗺️</span>エリア図</button><button type="button" data-t="m-drink"><span aria-hidden="true">🍺</span>飲み放題</button><button type="button" data-t="m-gear"><span aria-hidden="true">🎛️</span>備品</button><button type="button" data-t="m-rule"><span aria-hidden="true">📏</span>ルール</button><button type="button" data-t="m-bag"><span aria-hidden="true">🎒</span>持ち物</button><button type="button" data-t="m-end"><span aria-hidden="true">🧹</span>撤収</button></nav>
+      <div class="memo-links"><a href="https://docs.google.com/presentation/d/1xoYfJvoFQ0hL4hPani7i-RD2Agn2dC0Dmy1CqlIwvEw/edit?slide=id.g323cdf1801d_0_508" target="_blank" rel="noopener">🗺️ エリア図</a><a href="#staff-count">👥 受付</a><a href="https://www.weddingshare.me/weddings/dxnptktnwicr0grh/mm2fWkzwInvKavu8uPR6DRfjzScwnRJk?openExternalBrowser=1&amp;type=qr" target="_blank" rel="noopener">📸 写真</a></div>
+    </div>
     <h2>タイムテーブル（詳細）</h2>
     <p class="st-hint"><b>項目名をタップするとメモが開きます。</b>「編集」で書き換えて「保存」すると、みんなのスマホに反映されます。</p>
     <ol class="st" id="st"></ol>
@@ -406,8 +413,6 @@ details.fold[open] summary{margin-bottom:10px}
 
   <section class="s-sec">
     <h2>メモ</h2>
-    <nav class="memo-nav" aria-label="メモの項目へ移動"><button type="button" data-t="m-uke"><span aria-hidden="true">🧾</span>受付</button><button type="button" data-t="m-bingo"><span aria-hidden="true">🎲</span>ビンゴ</button><button type="button" data-t="m-map"><span aria-hidden="true">🗺️</span>エリア図</button><button type="button" data-t="m-drink"><span aria-hidden="true">🍺</span>飲み放題</button><button type="button" data-t="m-gear"><span aria-hidden="true">🎛️</span>備品</button><button type="button" data-t="m-rule"><span aria-hidden="true">📏</span>ルール</button><button type="button" data-t="m-bag"><span aria-hidden="true">🎒</span>持ち物</button><button type="button" data-t="m-end"><span aria-hidden="true">🧹</span>撤収</button></nav>
-    <div class="memo-links"><a href="https://docs.google.com/presentation/d/1xoYfJvoFQ0hL4hPani7i-RD2Agn2dC0Dmy1CqlIwvEw/edit?slide=id.g323cdf1801d_0_508" target="_blank" rel="noopener">🗺️ エリア図</a><a href="#staff-count">👥 受付</a><a href="https://www.weddingshare.me/weddings/dxnptktnwicr0grh/mm2fWkzwInvKavu8uPR6DRfjzScwnRJk?openExternalBrowser=1&amp;type=qr" target="_blank" rel="noopener">📸 写真</a></div>
     <div class="memo">
       <details open id="m-uke"><summary><span class="mi" aria-hidden="true">🧾</span>受付の流れ（豪さん・ひろきち）</summary>
         <ol>
