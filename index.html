@@ -69,6 +69,18 @@ header.wed{text-align:center;padding-top:28px;display:flex;flex-direction:column
 .names .amp{color:var(--gold);font-style:italic}
 .date{font-family:var(--display);letter-spacing:.3em;font-size:13px;color:var(--muted)}
 section.act{display:flex;flex-direction:column;gap:12px}
+.wx{background:var(--gold-soft);border:1px solid var(--gold);border-radius:12px;padding:0}
+.wx summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;font-weight:700;font-size:15px;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.wx summary::-webkit-details-marker{display:none}
+.wx-ic{color:var(--gold);font-size:18px;line-height:1}
+.wx-t{flex:1}
+.wx-chev{color:var(--gold);font-size:12px;transition:transform .2s}
+.wx[open] .wx-chev{transform:rotate(180deg)}
+.wx-body{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.7}
+.wx-body p{margin:0}
+.wx-body ul{margin:0;padding-left:1.2em}
+.wx-body b{color:var(--ink)}
+.wx-body a.btn{align-self:flex-start;background:var(--gold);color:var(--surface);padding:10px 18px;border-radius:99px;font-size:14px;font-weight:700;text-decoration:none}
 .act-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:8px}
 .act-en{font-family:var(--display);font-size:24px;letter-spacing:.08em}
 .act-ja{font-family:var(--mincho);font-size:13px;color:var(--muted)}
@@ -250,6 +262,19 @@ details.fold[open] summary{margin-bottom:10px}
     <div class="names">ATSUKI <span class="amp">&amp;</span> AYAKA</div>
     <div class="date">2026 . 11 . 15 SUN</div>
   </header>
+
+  <details class="wx">
+    <summary><span class="wx-ic" aria-hidden="true">&#9730;</span><span class="wx-t">※ご注意　当日の天気について</span><span class="wx-chev" aria-hidden="true">&#9662;</span></summary>
+    <div class="wx-body">
+      <p>当日は雨の予報が出ています。挙式から披露宴までの移動は、<b>屋根のある場所</b>が中心です。</p>
+      <ul>
+        <li><b>歩きやすい靴</b>でお越しください（足元が濡れることがあります）</li>
+        <li><b>傘</b>をお持ちください</li>
+        <li>夕方以降は冷え込みます。<b>コートなど防寒できる服装</b>でお越しください</li>
+      </ul>
+      <a class="btn" href="https://weathernews.jp/onebox/tenki/tokyo/13103/" target="_blank" rel="noopener">最新の天気をみる（港区・ウェザーニュース）</a>
+    </div>
+  </details>
 
   <section class="act">
     <div class="act-head"><span class="act-en">Ceremony</span><span class="act-ja">挙式</span></div>
